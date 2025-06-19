@@ -1,147 +1,152 @@
 <template>
-  <nav class="nav-container">
-    <!-- 左侧 -->
-    <div class="nav-left">
+<!-- 桌面端導航 -->
+    <nav class="nav-overlay">
+      <div class="nav-left">
+        <h1 class="store-name">Newsmoothly Store</h1>
+        <div class="desktop-menu">
+          <a
+            v-for="(item, index) in navItems"
+            :key="index"
+            :href="item.link"
+            class="nav-item"
+            :class="{ active: activeItem === index }"
+            @click.prevent="setActive(index)"
+          >
+            {{ item.title }}
+          </a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <SearchIcon class="nav-icon" />
+        <UserIcon class="nav-icon" />
+        <div class="relative">
+          <ShoppingCartIcon class="nav-icon" />
+          <!-- <span class="cart-badge">2</span> -->
+        </div>
+      </div>
+    </nav>
+
+    <!-- 移动端漢堡選單按鈕 -->
+    <button class="mobile-menu-button" @click="toggleMobileNav" aria-label="Toggle menu">
+      <MenuIcon v-if="!isMobileNavOpen" />
+      <CloseIcon v-else />
+    </button>
+
+    <!-- 移动端中间商店名 -->
+    <div class="mobile-nav-center">
       <h1 class="store-name">Newsmoothly Store</h1>
-      <div class="desktop-menu">
-        <a 
-          v-for="(item, index) in navItems" 
+    </div>
+
+    <!-- 移动端右上角圖標 -->
+    <div class="mobile-nav-icons">
+      <SearchIcon class="nav-icon" />
+      <UserIcon class="nav-icon" />
+      <div class="relative">
+        <ShoppingCartIcon class="nav-icon" />
+        <!-- <span class="cart-badge">2</span> -->
+      </div>
+    </div>
+
+    <!-- 移动端側邊抽屜導航 -->
+    <nav class="mobile-nav-drawer" :class="{ open: isMobileNavOpen }">
+      <div>
+        <a
+          v-for="(item, index) in navItems"
           :key="index"
           :href="item.link"
           class="nav-item"
-          :class="{ 'active': activeItem === index }"
-          @click.prevent="setActive(index)"
+          :class="{ active: activeItem === index }"
+          @click.prevent="setActive(index); toggleMobileNav()"
         >
           {{ item.title }}
         </a>
       </div>
-    </div>
-    
-    <!-- 右侧 -->
-    <div class="nav-right">
-      <SearchIcon class="nav-icon" />
-      <UserIcon class="nav-icon" />
-      <div class="cart-icon-container">
-        <ShoppingCartIcon class="nav-icon" />
-        <span 
-          v-if="cartCount > 0" 
-          class="cart-badge"
-        >
-          {{ cartCount }}
-        </span>
-      </div>
-      <MenuIcon 
-        class="mobile-menu-icon" 
-        @click="toggleMobileMenu" 
-      />
-    </div>
-  </nav>
-
-  <!-- 移动端菜单 -->
-  <div 
-    v-if="mobileMenuOpen" 
-    class="mobile-menu-content"
-  >
-    <a 
-      v-for="(item, index) in navItems" 
-      :key="index"
-      :href="item.link"
-      class="mobile-nav-item"
-      :class="{ 'active': activeItem === index }"
-      @click.prevent="setActive(index)"
-    >
-      {{ item.title }}
-    </a>
-  </div>
+    </nav>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { 
-  Search as SearchIcon, 
-  ShoppingCart as ShoppingCartIcon, 
-  Menu as MenuIcon, 
-  User as UserIcon 
+
+import {
+  Search as SearchIcon,
+  ShoppingCart as ShoppingCartIcon,
+  User as UserIcon,
+  Menu as MenuIcon,
+  X as CloseIcon
 } from 'lucide-vue-next'
 
-// 定义props
-const props = defineProps({
-  cartCount: {
-    type: Number,
-    default: 0
-  }
-})
 
-// 导航数据
+
 const navItems = ref([
   { title: 'HOME', link: '#home' },
   { title: 'CATALOG', link: '#catalog' },
-  { title: 'ABOUT US', link: '#about' },
-  { title: 'PRIVACY POLICY', link: '#privacy' },
-  { title: 'REFUND POLICY', link: '#refund' },
-  { title: 'TERMS AND CONDITIONS', link: '#terms' }
+  { title: 'ABOUT', link: '#about' },
+  { title: 'CONTACT', link: '#contact' }
 ])
 
-// 响应式状态
-const mobileMenuOpen = ref(false)
 const activeItem = ref(0)
-
-// 方法
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
-
 const setActive = (index) => {
   activeItem.value = index
-  mobileMenuOpen.value = false
-  // 这里可以添加路由导航逻辑
-  console.log(`Navigating to: ${navItems.value[index].link}`)
 }
+
+// 控制手機導航抽屜開關
+const isMobileNavOpen = ref(false)
+const toggleMobileNav = () => {
+  isMobileNavOpen.value = !isMobileNavOpen.value
+}
+
 </script>
 
-<style scoped>
-/* 基础样式 */
-.nav-container {
+<style>
+.nav-overlay {
+  height: 30px;
+  position: relative;
+  z-index: 2;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
 }
+
+.nav-overlay:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+}
+
 
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 2rem;
 }
 
 .store-name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-/* 桌面导航 */
-.desktop-menu {
-  display: none;
-  gap: 1.5rem;
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  margin-right: 0.5rem;
 }
 
 .nav-item {
-  color: #374151;
-  text-decoration: none;
-  font-weight: 500;
+  margin-left: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.3s ease;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 600;
+  font-style: normal;
   text-transform: uppercase;
-  transition: color 0.2s ease;
+  font-size: 1.25rem;
+  letter-spacing: 0.8px;
+  text-decoration: none;
 }
 
-.nav-item:hover,
 .nav-item.active {
-  color: #d97706;
+  color: rgba(255, 255, 255, 1);
 }
 
-/* 右侧导航图标 */
 .nav-right {
   display: flex;
   align-items: center;
@@ -149,82 +154,140 @@ const setActive = (index) => {
 }
 
 .nav-icon {
-  width: 20px;
-  height: 20px;
-  color: #6b7280;
-  cursor: pointer;
-  transition: color 0.2s ease;
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 1);
 }
 
-.nav-icon:hover {
-  color: #d97706;
+.nav-overlay:hover .nav-item, .nav-overlay:hover .store-name {
+  color: rgba(0, 0, 0, 0.7);
 }
 
-.cart-icon-container {
-  position: relative;
+.nav-overlay:hover .nav-item.active {
+  color: rgba(0, 0, 0, 1);
 }
 
-.cart-badge {
+.nav-overlay:hover .nav-icon {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* 購物車數量氣泡 */
+/* .cart-badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #dc2626;
-  color: white;
-  font-size: 12px;
+  top: -6px;
+  right: -10px;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  color: #4A3B2A;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-/* 移动菜单 */
-.mobile-menu-icon {
-  display: none;
-  width: 20px;
-  height: 20px;
-  color: #6b7280;
-  cursor: pointer;
-}
-
-.mobile-menu-content {
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
-  padding: 1rem 1.5rem;
-}
-
-.mobile-nav-item {
-  display: block;
-  color: #374151;
+.hero-overlay-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-182%, 120%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 329px;
+  height: 90px;
+  font-size: 43px;
+  font-weight: 400;
+  color: #4A3B2A;
+  background-color: transparent;
+  border: 2px solid #4A3B2A;
+  border-radius: 31px;
   text-decoration: none;
-  font-weight: 500;
-  text-transform: uppercase;
-  padding: 0.5rem 0;
-  transition: color 0.2s ease;
+  z-index: 3;
+  transition: transform 0.3s ease;
 }
 
-.mobile-nav-item:hover,
-.mobile-nav-item.active {
-  color: #d97706;
+.hero-overlay-button:hover {
+  transform: translate(-182%, 120%) scale(1.05);
 }
 
-/* 响应式设计 */
-@media (min-width: 768px) {
-  .desktop-menu {
-    display: flex !important;
+/* 響應式處理 */
+@media (max-width: 768px) {
+  .hero-overlay-button {
+    display: none;
   }
-  .mobile-menu-icon {
-    display: none !important;
-  }
-}
 
-@media (max-width: 767px) {
-  .desktop-menu {
-    display: none !important;
+  .nav-overlay {
+    display: none;
   }
-  .mobile-menu-icon {
-    display: block !important;
+
+  .mobile-menu-button {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 20;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    padding: 2rem 1rem;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .mobile-nav-drawer.open {
+    transform: translateX(0);
+  }
+
+  .mobile-nav-drawer .nav-item {
+    display: block;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .mobile-nav-drawer .nav-item.active {
+    color: #d97706;
+  }
+
+  .mobile-nav-icons {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .mobile-nav-center {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+  }
+  .mobile-nav-center .store-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4A3B2A;
+    margin: 0;
   }
 }
 </style>

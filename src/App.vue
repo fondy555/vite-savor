@@ -1,10 +1,11 @@
 <template>
-  <Navigation />
+  <!-- <Navigation /> -->
+  <Home />
 </template>
 
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-import Navigation from './components/Navigation.vue' 
+// import Navigation from './components/Navigation.vue'
+import Home from './pages/Home.vue'
 </script>
 
 <style scoped>
