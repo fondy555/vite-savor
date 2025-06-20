@@ -9,12 +9,24 @@
     <!-- 中央 SHOP NOW 按鈕（手機隱藏） -->
     <a href="/collections/all" class="hero-overlay-button">SHOP NOW</a>
   </section>
+  <section>
+    <ProductGrid />
+  </section>
+  <section>
+    <Footer />
+  </section>
 </template>
 
 <script setup>
 import Navigation from '../components/Navigation.vue';
 const heroImage = new URL('../assets/background.png', import.meta.url).href
+import ProductGrid from '../components/ProductGrid.vue';
+import Footer from '../components/Footer.vue';
+
 const heroMinHeight = '600px'
+
+
+
 
 </script>
 
@@ -37,6 +49,8 @@ const heroMinHeight = '600px'
   object-fit: cover;
   object-position: center center;
 }
+
+
 
 
 </style>

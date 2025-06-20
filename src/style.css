@@ -11,10 +11,14 @@ body, html {
   padding: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(230, 230, 230, 1); /* 浅灰色背景 */
+  margin: 0; /* 清除默认边距 */
+  min-height: 100vh; /* 让 body 高度撑满视口 */
 }
 
 #app {
   width: 100%;
   min-height: 100%;
 }
+
 </style>
