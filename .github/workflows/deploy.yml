@@ -1,28 +1,37 @@
-name: Deploy to GitHub Pages
+name: Deploy Vue App to GitHub Pages
 
 on:
   push:
-    branches: [main] # 或 master，根据你的主分支名
+    branches: [ "main" ]  # 监听 main 分支的推送（如果是 master 分支请修改）
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 环境
+    
     steps:
-      - uses: actions/checkout@v2
-      
+      # 1. 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      # 2. 安装 Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 18  # 推荐 Node.js 18+
+          cache: 'npm'  # 缓存 npm 依赖，加速构建
           
+      # 3. 安装依赖
       - name: Install dependencies
         run: npm install
         
+      # 4. 构建项目
       - name: Build project
         run: npm run build
         
+      # 5. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub 自动提供的 token
+          publish_dir: ./dist  # 部署 dist 目录
+          keep_files: false  # 每次覆盖旧文件
