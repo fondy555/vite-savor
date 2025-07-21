@@ -22,11 +22,11 @@
         <div class="relative">
           <ShoppingCartIcon class="nav-icon" />
         </div> -->
-        <div class="relative">
+        <!-- <div class="relative"> -->
           <!-- <PhoneIcon class="nav-icon" /> -->
           <font-awesome-icon :icon="['fab', 'whatsapp']" class="nav-icon" />
           <span class="ml-2">Whatsapp: +852 65051022</span>
-        </div>
+        <!-- </div> -->
       </div>
     </nav>
 
@@ -114,7 +114,7 @@ const toggleMobileNav = () => {
 <style>
 .nav-overlay {
   height: 30px;
-  position: relative;
+  /* position: relative; */
   z-index: 20;
   display: flex;
   justify-content: space-between;
