@@ -3,7 +3,7 @@
     <nav class="nav-overlay">
       <div class="nav-left">
         <h1 class="store-name">Newsmoothly Store</h1>
-        <div class="desktop-menu">
+        <!-- <div class="desktop-menu">
           <a
             v-for="(item, index) in navItems"
             :key="index"
@@ -14,7 +14,7 @@
           >
             {{ item.title }}
           </a>
-        </div>
+        </div> -->
       </div>
       <div class="nav-right">
         <!-- <SearchIcon class="nav-icon" />
@@ -25,7 +25,7 @@
         <div class="relative">
           <!-- <PhoneIcon class="nav-icon" /> -->
           <font-awesome-icon :icon="['fab', 'whatsapp']" class="nav-icon" />
-          <span class="ml-2">投诉 Whatsapp: +852 65051022</span>
+          <span class="ml-2">Whatsapp: +852 65051022</span>
         </div>
       </div>
     </nav>
@@ -58,7 +58,7 @@
           class="nav-item"
         >
           <font-awesome-icon :icon="['fab', 'whatsapp']" />
-          <span style="align-items: center;">投诉Whatsapp: +852 65051022</span>
+          <span style="align-items: center;">Whatsapp: +852 65051022</span>
         </a>
         <!-- <a
           v-for="(item, index) in navItems"
@@ -115,7 +115,7 @@ const toggleMobileNav = () => {
 .nav-overlay {
   height: 30px;
   position: relative;
-  z-index: 2;
+  z-index: 20;
   display: flex;
   justify-content: space-between;
   align-items: center;
