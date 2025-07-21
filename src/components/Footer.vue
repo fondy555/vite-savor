@@ -2,7 +2,7 @@
   <footer class="store-footer">
     <!-- 主要Footer內容 -->
     <div class="footer-main">
-      <div class="footer-container">
+      <div class="footer-container" v-if="false">
         <div class="footer-grid">
           <!-- SHOP 區域 -->
           <div class="footer-section">
@@ -41,7 +41,7 @@
           <div class="copyright">
             <p>&copy; {{ currentYear }} {{ storeName }}. Powered by XIN SHUN RONG</p>
           </div>
-          <div class="footer-bottom-links">
+          <div class="footer-bottom-links" v-if="false">
             <a href="#" @click.prevent="handleNavigation('privacy')">Privacy policy</a>
             <a href="#" @click.prevent="handleNavigation('refund')">Refund policy</a>
             <a href="#" @click.prevent="handleNavigation('terms')">Terms of service</a>

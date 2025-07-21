@@ -17,11 +17,15 @@
         </div>
       </div>
       <div class="nav-right">
-        <SearchIcon class="nav-icon" />
+        <!-- <SearchIcon class="nav-icon" />
         <UserIcon class="nav-icon" />
         <div class="relative">
           <ShoppingCartIcon class="nav-icon" />
-          <!-- <span class="cart-badge">2</span> -->
+        </div> -->
+        <div class="relative">
+          <!-- <PhoneIcon class="nav-icon" /> -->
+          <font-awesome-icon :icon="['fab', 'whatsapp']" class="nav-icon" />
+          <span class="ml-2">投诉 Whatsapp: +852 65051022</span>
         </div>
       </div>
     </nav>
@@ -39,18 +43,24 @@
 
     <!-- 移动端右上角圖標 -->
     <div class="mobile-nav-icons">
-      <SearchIcon class="nav-icon" />
+      <!-- <SearchIcon class="nav-icon" />
       <UserIcon class="nav-icon" />
       <div class="relative">
         <ShoppingCartIcon class="nav-icon" />
-        <!-- <span class="cart-badge">2</span> -->
-      </div>
+      </div> -->
+
     </div>
 
     <!-- 移动端側邊抽屜導航 -->
     <nav class="mobile-nav-drawer" :class="{ open: isMobileNavOpen }">
       <div>
-        <a
+        <a  
+          class="nav-item"
+        >
+          <font-awesome-icon :icon="['fab', 'whatsapp']" />
+          <span style="align-items: center;">投诉Whatsapp: +852 65051022</span>
+        </a>
+        <!-- <a
           v-for="(item, index) in navItems"
           :key="index"
           :href="item.link"
@@ -59,7 +69,7 @@
           @click.prevent="setActive(index); toggleMobileNav()"
         >
           {{ item.title }}
-        </a>
+        </a> -->
       </div>
     </nav>
 </template>
@@ -72,16 +82,20 @@ import {
   ShoppingCart as ShoppingCartIcon,
   User as UserIcon,
   Menu as MenuIcon,
-  X as CloseIcon
+  X as CloseIcon,
+  Phone as PhoneIcon
 } from 'lucide-vue-next'
+
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'; // 导入 FontAwesome 图标
 
 
 
 const navItems = ref([
-  { title: 'HOME', link: '#home' },
-  { title: 'CATALOG', link: '#catalog' },
-  { title: 'ABOUT', link: '#about' },
-  { title: 'CONTACT', link: '#contact' }
+  // { title: 'HOME', link: '#home' },
+  // { title: 'CATALOG', link: '#catalog' },
+  // { title: 'ABOUT', link: '#about' },
+  // { title: 'CONTACT', link: '#contact' }
 ])
 
 const activeItem = ref(0)
@@ -141,6 +155,8 @@ const toggleMobileNav = () => {
   font-size: 1.25rem;
   letter-spacing: 0.8px;
   text-decoration: none;
+  z-index: 2;
+
 }
 
 .nav-item.active {
@@ -229,8 +245,8 @@ const toggleMobileNav = () => {
     top: 1rem;
     left: 1rem;
     z-index: 20;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -258,7 +274,7 @@ const toggleMobileNav = () => {
   .mobile-nav-drawer .nav-item {
     display: block;
     margin: 1rem 0;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     color: #333;
     text-decoration: none;
   }
@@ -281,10 +297,10 @@ const toggleMobileNav = () => {
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 20;
+    z-index: 1;
   }
   .mobile-nav-center .store-name {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #4A3B2A;
     margin: 0;
