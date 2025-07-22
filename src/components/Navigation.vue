@@ -1,7 +1,7 @@
 <template>
 <!-- 桌面端導航 -->
     <nav class="nav-overlay">
-      <div class="nav-left">
+      <div class="nav-left" style="z-index: 1;">
         <h1 class="store-name">Newsmoothly Store</h1>
         <!-- <div class="desktop-menu">
           <a
@@ -16,7 +16,7 @@
           </a>
         </div> -->
       </div>
-      <div class="nav-right">
+      <div class="nav-right" style="z-index: 1;">
         <!-- <SearchIcon class="nav-icon" />
         <UserIcon class="nav-icon" />
         <div class="relative">
@@ -114,7 +114,7 @@ const toggleMobileNav = () => {
 <style>
 .nav-overlay {
   height: 30px;
-  /* position: relative; */
+  position: relative;
   z-index: 20;
   display: flex;
   justify-content: space-between;
