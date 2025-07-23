@@ -114,8 +114,8 @@ const toggleMobileNav = () => {
 <style>
 .nav-overlay {
   height: 30px;
-  position: relative;
-  z-index: 20;
+  position: relative !important;
+  z-index: 20 !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -131,7 +131,7 @@ const toggleMobileNav = () => {
 
 
 .nav-left {
-  display: flex;
+  display: flex !important;
   align-items: center;
 }
 
@@ -155,7 +155,7 @@ const toggleMobileNav = () => {
   font-size: 1.25rem;
   letter-spacing: 0.8px;
   text-decoration: none;
-  z-index: 2;
+  z-index: 2 !important;
 
 }
 
@@ -164,8 +164,8 @@ const toggleMobileNav = () => {
 }
 
 .nav-right {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
   gap: 1rem;
 }
 
