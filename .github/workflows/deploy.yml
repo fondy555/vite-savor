@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04.5  # 使用最新的 Ubuntu 环境
+    runs-on: ubuntu-22.04  # 使用最新的 Ubuntu 环境
     permissions:
       contents: write
       pages: write
